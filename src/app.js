@@ -51,13 +51,12 @@ export const run = async (target) => {
     regex = new RegExp(`${attr}="([^"]*)"`,'g')
     while ((match = regex.exec(pageSource)) !== null) {
       const link = match[1]
+      if (attr === 'href' && link.startsWith("http") && !link.includes(global.__target)) {
+        continue
+      } 
       links.push([attr,link])
     }
   }
-  // const linkRegex = /href="([^"]*)"/g
-  // let match
-
-  // Extract all links from the page
 
   for (const [attr, link] of links) {
     const url = new URL(link, target)
