@@ -6,6 +6,8 @@ Spider is a simple links checker.
 With Spider you can check site for broken links and print report to the file.
 </div>
 
+---
+
 ![img.png](img.png)
 
 </div>
