@@ -1,0 +1,41 @@
+{
+  "name": "@olton/spider",
+  "description": "Spider - is a simple links checker for web pages",
+  "version": "0.0.1",
+  "main": "src/app.js",
+  "bin": {
+    "spider": "cli/spider.js"
+  },
+  "type": "module",
+  "scripts": {
+    "pub": "npm publish --access public",
+    "test": "spider"
+  },
+  "keywords": [
+    "javascript",
+    "spider",
+    "crawler",
+    "links-checker",
+    "checker",
+    "site",
+    "page",
+    "web",
+    "web-pages-checker",
+    "test"
+  ],
+  "author": "Serhii Pimenov <serhii@pimenov.com.ua> (https://pimenov.com.ua)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olton/spider.git"
+  },
+  "bugs": {
+    "url": "https://github.com/olton/spider/issues",
+    "email": "serhii@pimenov.com.ua"
+  },
+  "dependencies": {
+    "@olton/progress": "^0.8.0",
+    "@olton/terminal": "^0.5.0",
+    "yargs": "^17.7.2"
+  }
+}
