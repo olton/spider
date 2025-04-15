@@ -12,10 +12,10 @@ export default (data) => {
     if (data[host].length === 0) {
       continue
     }
-    bl += `\nTarget: ${host}\n`
+    bl += `Target: ${host}\n`
     bl += `-----------------------------------------------------------------\n`
-    for (const [attr, link] of data[host]) {
-      bl += `[${attr}] ${link}\n`
+    for (const [attr, code, link, element] of data[host]) {
+      bl += `[${attr}:${code}] ${element}\n`
     }
     bl += `\n\n`
   }

@@ -1,5 +1,6 @@
 import {Activity} from '@olton/progress'
 import { termx, Cursor, Screen } from "@olton/terminal"
+import { parse } from 'node-html-parser';
 
 const 
   bad_links = {}, 
@@ -91,18 +92,24 @@ export const run = async (target) => {
     activity.process(`${termx.magenta.write(_link)}`)
     
     try {
-      const response = await fetch(href)
-      if (!response.ok) {
-        bad_links[target].push([attr, href])
+      const response = await fetch(href, {
+        headers: {
+          'User-Agent': '@olton-spider',
+        },
+      })
+      if (response.ok === false) {
+        const html = parse(pageSource)
+        const element = html.querySelector(`[${attr}="${link}"]`)
+        
+        bad_links[target].push([attr, response.status, href, element?.outerHTML])
+        
         Cursor.to(0, startLineForBadLinks + 2)
         process.stdout.write(`\r${termx.gray.write("Bad links found    :")} ${termx.yellowBright.write(getBadLinksCount())}`)
-      } else {
-        if (attr === "href") await run(href)
       }
+      if (attr === "href") {
+        await run(href)
+      }      
     } catch (error) {
-      bad_links[target].push([attr, href])
-      Cursor.to(0, startLineForBadLinks + 2)
-      process.stdout.write(`\r${termx.gray.write("Bad links found    :")} ${termx.yellowBright.write(getBadLinksCount())}`)
     }
   }
   
