@@ -40,7 +40,7 @@ export const processArgv = () => {
     })
     .option('agent', {
       type: 'string',
-      description: 'User agent to use for the request',
+      description: 'User agent to use for the requests. Default "Chrome 58 UA"',
     })
     .parse()
 }

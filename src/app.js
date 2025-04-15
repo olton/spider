@@ -52,9 +52,9 @@ export const run = async (target) => {
     regex = new RegExp(`${attr}="([^"]*)"`,'g')
     while ((match = regex.exec(pageSource)) !== null) {
       const link = match[1]
-      if (attr === 'href' && link.startsWith("http") && !link.includes(global.__target)) {
-        continue
-      } 
+      if (link === "") { continue; }
+      if (link === "#") { continue; }
+      if (link === "javascript:") { continue; }
       links.push([attr,link])
     }
   }
@@ -91,6 +91,8 @@ export const run = async (target) => {
     
     activity.process(`${termx.magenta.write(_link)}`)
     
+    let element
+    
     try {
       const response = await fetch(href, {
         headers: {
@@ -99,7 +101,8 @@ export const run = async (target) => {
       })
       if (response.ok === false) {
         const html = parse(pageSource)
-        const element = html.querySelector(`[${attr}="${link}"]`)
+        
+        element = html.querySelector(`[${attr}="${link}"]`)
         
         bad_links[target].push([attr, response.status, href, element?.outerHTML])
         
@@ -107,7 +110,9 @@ export const run = async (target) => {
         process.stdout.write(`\r${termx.gray.write("Bad links found    :")} ${termx.yellowBright.write(getBadLinksCount())}`)
       }
       if (attr === "href") {
-        await run(href)
+        if (href.includes(global.__target)) {
+          await run(href)
+        }
       }      
     } catch (error) {
     }
