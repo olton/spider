@@ -31,7 +31,11 @@ try {
   updateConfig(args)
   
   try {
-    await fetch(target)
+    await fetch(target, {
+      headers: {
+        'User-Agent': config.agent,
+      }
+    })
   } catch (error) {
     console.log(termx.error(`\n\n${FAIL}! Target ${target} is not reachable!\n\n`))
     process.exit(1)

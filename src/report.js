@@ -4,18 +4,23 @@ import { LOGO } from './constants.js'
 
 export default (data) => {
   const hostname = new URL(global.__target).hostname
-  const fileName = `${hostname}-bad_links.txt`
+  if (config.dir && !fs.existsSync(config.dir)) {
+    fs.mkdirSync(config.dir, { recursive: true })
+  }
+  const fileName = `${config.dir ? config.dir + "/" : ""}${config.name.replace('{time}', new Date().toLocaleTimeString)}`
   
   let bl = ``
+
+  bl += `Report for: ${hostname}\n`
   
   for (const host in data) {
     if (data[host].length === 0) {
       continue
     }
-    bl += `Target: ${host}\n`
+    bl += `Page: ${host}\n`
     bl += `-----------------------------------------------------------------\n`
     for (const [attr, code, link, element] of data[host]) {
-      bl += `[${attr}:${code}] ${element}\n`
+      bl += `[${attr}:${code}] ${element.replaceAll('\n', '')}\n`
     }
     bl += `\n\n`
   }

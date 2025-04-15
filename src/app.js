@@ -94,7 +94,7 @@ export const run = async (target) => {
     try {
       const response = await fetch(href, {
         headers: {
-          'User-Agent': '@olton-spider',
+          'User-Agent': config.agent,
         },
       })
       if (response.ok === false) {
