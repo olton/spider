@@ -1,7 +1,7 @@
 {
   "name": "@olton/spider",
   "description": "Spider - is a simple links checker for web pages",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "src/app.js",
   "bin": {
     "spider": "cli/spider.js"

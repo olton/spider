@@ -3,7 +3,7 @@ import { termx } from '@olton/terminal'
 import { LOGO } from './constants.js'
 
 export default (data) => {
-  const hostname = new URL(global.__target).hostname
+  const target = new URL(global.__target)
   if (config.dir && !fs.existsSync(config.dir)) {
     fs.mkdirSync(config.dir, { recursive: true })
   }
@@ -11,15 +11,15 @@ export default (data) => {
   
   let bl = ``
 
-  bl += `Report for: ${hostname}\n`
+  bl += `Report for: ${global.__target}\n\n\n`
   
   for (const host in data) {
     if (data[host].length === 0) {
       continue
     }
-    bl += `Page: ${host}\n`
+    bl += `Page: >>> ${host} <<<\n`
     bl += `-----------------------------------------------------------------\n`
-    for (const [attr, code, link, element] of data[host]) {
+    for (const [attr, code, link, element = ''] of data[host]) {
       bl += `[${attr}:${code}] ${element.replaceAll('\n', '')}\n`
     }
     bl += `\n\n`
