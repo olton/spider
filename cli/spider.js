@@ -8,6 +8,7 @@ import { processArgv, updateConfig } from '../src/config.js'
 import { banner } from '../src/helpers/banner.js'
 import { init, run } from '../src/app.js'
 import report from '../src/report.js'
+import registerGlobalEvents from '../src/global-events.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -15,6 +16,8 @@ const __root = dirname(__dirname)
 
 const args = processArgv()
 const startTime = Date.now()
+
+registerGlobalEvents()
 
 try {
   const root = process.cwd()
