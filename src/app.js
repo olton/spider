@@ -1,5 +1,4 @@
-import {Activity} from '@olton/progress'
-import { termx, Cursor, Screen } from "@olton/terminal"
+import { termx, Cursor, Screen, Activity } from "@olton/terminal"
 import { parse } from 'node-html-parser';
 
 const 
